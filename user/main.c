@@ -3,7 +3,7 @@
 *                             包含的头文件
 *************************************************************************
 */
-#include "list.h"
+#include <stdint.h>
 
 /*
 *************************************************************************
@@ -11,16 +11,15 @@
 *************************************************************************
 */
 
-/* 定义链表根节点 */
-struct xLIST       List_Test;
+uint32_t flag1;
+uint32_t flag2;
 
-/* 定义节点 */
-struct xLIST_ITEM  List_Item1;
-struct xLIST_ITEM  List_Item2;
-struct xLIST_ITEM  List_Item3;
-struct xLIST_ITEM  List_Item4;
 
-int remain_num;
+void delay(uint32_t count)
+{
+	for(;count!=0;count--);
+	
+}
 
 
 /*
@@ -36,46 +35,20 @@ int remain_num;
 int main(void)
 {	
 	
-    /* 链表根节点初始化 */
-    vListInitialise( &List_Test );
-    
-    /* 节点1初始化 */
-    vListInitialiseItem( &List_Item1 );
-    List_Item1.xItemValue = 1;
-    
-    /* 节点2初始化 */    
-    vListInitialiseItem( &List_Item2 );
-    List_Item2.xItemValue = 2;
-    
-    /* 节点3初始化 */
-    vListInitialiseItem( &List_Item3 );
-    List_Item3.xItemValue = 3;
-	
-	/* 节点4初始化 */
-    vListInitialiseItem( &List_Item4 );
-    List_Item3.xItemValue = 4;
-    
-    /* 将节点插入链表，按照升序排列 */
-    vListInsert( &List_Test, &List_Item1 );    
-    vListInsert( &List_Test, &List_Item3 );  
-	/* 链表中间插入实验  */
-    vListInsert( &List_Test, &List_Item2 );	
-	
-	/* 尾部插入 实验  */
-    vListInsertEnd( &List_Test, &List_Item4 );
-	
-	remain_num = uxListRemove(&List_Item2);
-	
-	if(remain_num == 3)
-	{
-		/* 调试标识，如果进入循环，则删除成功 */
-		while(1){}
-		
-	}
+   
     
     for(;;)
 	{
-		/* 啥事不干 */
+		flag1 = 1;
+		delay(100);
+		flag1 = 0;
+		delay(100);
+		
+		flag2 = 1;
+		delay(100);
+		flag2 = 0;
+		delay(100);
+		
 	}
 }
 
