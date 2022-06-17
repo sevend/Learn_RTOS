@@ -85,7 +85,8 @@ TaskHandle_t xTaskCreateStatic(	TaskFunction_t pxTaskCode,           /* 任务入口
 
 #endif /* configSUPPORT_STATIC_ALLOCATION */
 
-
+/* 初始化任务，返回任务控制块指针TCB
+*/
 static void prvInitialiseNewTask( 	TaskFunction_t pxTaskCode,              /* 任务入口 */
 									const char * const pcName,              /* 任务名称，字符串形式 */
 									const uint32_t ulStackDepth,            /* 任务栈大小，单位为字 */
@@ -134,6 +135,11 @@ static void prvInitialiseNewTask( 	TaskFunction_t pxTaskCode,              /* 任
 }
 
 /* 初始化任务相关的列表 */
+/* 就绪列表初始化，是一个数组，数组成员是双向链表。
+** 初始化完成，数组成员都只是单个根节点双向链表。
+
+** 执行双向链表插入
+*/
 void prvInitialiseTaskLists( void )
 {
     UBaseType_t uxPriority;

@@ -7,6 +7,7 @@
 #include "portmacro.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "list.h"
 
 /*
 *************************************************************************
@@ -35,6 +36,10 @@ TCB_t Task2TCB;
 TaskHandle_t Task1_Handle;
 TaskHandle_t Task2_Handle;
 
+
+/* 任务就绪列表 */
+extern List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
+
 /*
 *************************************************************************
 *                               函数声明 
@@ -58,6 +63,11 @@ void Task2_Entry( void *p_arg );
 int main(void)
 {	
 	
+	
+	 /* 初始化与任务相关的列表，如就绪列表 */
+    prvInitialiseTaskLists();
+
+	
 	    /* 创建任务 */
     Task1_Handle = xTaskCreateStatic( (TaskFunction_t)Task1_Entry,   /* 任务入口 */
 					                  (char *)"Task1",               /* 任务名称，字符串形式 */
@@ -66,14 +76,19 @@ int main(void)
 					                  (StackType_t *)Task1Stack,     /* 任务栈起始地址 */
 					                  (TCB_t *)&Task1TCB );          /* 任务控制块 */
 									  
+	/* 将任务添加到就绪列表 */                                 
+    vListInsertEnd( &( pxReadyTasksLists[1] ), &( ((TCB_t *)(&Task1TCB))->xStateListItem ) );
+
+									  
 	Task2_Handle = xTaskCreateStatic( (TaskFunction_t)Task2_Entry,   /* 任务入口 */
 					                  (char *)"Task2",               /* 任务名称，字符串形式 */
 					                  (uint32_t)TASK2_STACK_SIZE ,   /* 任务栈大小，单位为字 */
 					                  (void *) NULL,                 /* 任务形参 */
 					                  (StackType_t *)Task2Stack,     /* 任务栈起始地址 */
 					                  (TCB_t *)&Task2TCB );          /* 任务控制块 */
-    /* 将任务添加到就绪列表 */  
-   
+    /* 将任务添加到就绪列表 */                                   
+    vListInsertEnd( &( pxReadyTasksLists[2] ), &( ((TCB_t *)(&Task2TCB))->xStateListItem ) );
+
     
     for(;;)
 	{
