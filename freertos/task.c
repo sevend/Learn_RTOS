@@ -1,7 +1,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "projdefs.h"
-
+#include "portable.h"
 
 
 /*
@@ -149,5 +149,32 @@ void prvInitialiseTaskLists( void )
 	{
 		vListInitialise( &( pxReadyTasksLists[ uxPriority ] ) );
 	}
+}
+
+extern TCB_t Task1TCB;
+extern TCB_t Task2TCB;
+void vTaskStartScheduler( void )
+{
+    /* 手动指定第一个运行的任务 */
+    pxCurrentTCB = &Task1TCB;
+    
+    /* 启动调度器 */
+    if( xPortStartScheduler() != pdFALSE )
+    {
+        /* 调度器启动成功，则不会返回，即不会来到这里 */
+    }
+}
+
+void vTaskSwitchContext( void )
+{    
+    /* 两个任务轮流切换 */
+    if( pxCurrentTCB == &Task1TCB )
+    {
+        pxCurrentTCB = &Task2TCB;
+    }
+    else
+    {
+        pxCurrentTCB = &Task1TCB;
+    }
 }
 
