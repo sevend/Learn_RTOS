@@ -11,6 +11,10 @@
 
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )  // 空闲任务栈 大小
 
+// systick 相关配置
+#define configCPU_CLOCK_HZ			( ( unsigned long ) 25000000 )	
+#define configTICK_RATE_HZ			( ( TickType_t ) 1 )
+
 
 #define xPortPendSVHandler   PendSV_Handler
 #define xPortSysTickHandler  SysTick_Handler

@@ -95,16 +95,7 @@ int main(void)
     
     for(;;)
 	{
-		flag1 = 1;
-		delay(100);
-		flag1 = 0;
-		delay(100);
-		
-		flag2 = 1;
-		delay(100);
-		flag2 = 0;
-		delay(100);
-		
+	
 	}
 }
 
@@ -128,14 +119,9 @@ void Task1_Entry( void *p_arg )
 	for( ;; )
 	{
 		flag1 = 1;
-		delay( 100 );		
+		vTaskDelay( 2 );		
 		flag1 = 0;
-		delay( 100 );
-		
-
-		/* 任务切换，这里是手动切换 */
-        taskYIELD();
-
+		vTaskDelay( 2 );
 
 	}
 }
@@ -146,13 +132,10 @@ void Task2_Entry( void *p_arg )
 	for( ;; )
 	{
 		flag2 = 1;
-		delay( 100 );		
+		vTaskDelay( 2 );		
 		flag2 = 0;
-		delay( 100 );
+		vTaskDelay( 2 );
 		
-		/* 任务切换，这里是手动切换 */
-        taskYIELD();
-
 	}
 }
 
