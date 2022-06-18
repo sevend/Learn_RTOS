@@ -57,6 +57,9 @@ extern void vPortExitCritical( void );
 #define portSET_INTERRUPT_MASK_FROM_ISR()		ulPortRaiseBASEPRI() // 凡是看到FROM_ISR 结尾的函数/宏定义，它都是在中断中使用的
 #define portCLEAR_INTERRUPT_MASK_FROM_ISR(x)	vPortSetBASEPRI(x)
 
+// 空闲任务宏定义 重命名
+#define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
+
 
 #define portINLINE __inline
 

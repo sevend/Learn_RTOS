@@ -142,6 +142,22 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
+          <LineNumber>168</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>436</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>..\freertos\portable\RVDS\ARM_CM3\port.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\YH_RT_Thread\../freertos/portable/RVDS/ARM_CM3/port.c\168</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
           <LineNumber>93</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>904</Address>
