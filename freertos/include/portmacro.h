@@ -67,6 +67,32 @@ extern void vPortExitCritical( void );
 	#define portFORCE_INLINE __forceinline
 #endif
 
+/*---------------------优先级--------------------------------------*/
+
+#ifndef configUSE_PORT_OPTIMISED_TASK_SELECTION
+	#define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
+#endif
+
+#if configUSE_PORT_OPTIMISED_TASK_SELECTION == 1
+
+	/* 检测优先级配置 */
+	#if( configMAX_PRIORITIES > 32 )
+		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1 when configMAX_PRIORITIES is less than or equal to 32.  It is very rare that a system requires more than 10 to 15 difference priorities as tasks that share a priority will time slice.
+	#endif
+
+	/* 根据优先级设置/清除优先级位图中相应的位 */
+	#define portRECORD_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) |= ( 1UL << ( uxPriority ) )
+	#define portRESET_READY_PRIORITY( uxPriority, uxReadyPriorities ) ( uxReadyPriorities ) &= ~( 1UL << ( uxPriority ) )
+
+	/*-----------------------------------------------------------*/
+
+	#define portGET_HIGHEST_PRIORITY( uxTopPriority, uxReadyPriorities ) uxTopPriority = ( 31UL - ( uint32_t ) __clz( ( uxReadyPriorities ) ) )
+
+#endif /* taskRECORD_READY_PRIORITY */
+        
+        
+
+
 /*-----------------------------------------------------------*/
 
 static portFORCE_INLINE void vPortSetBASEPRI( uint32_t ulBASEPRI )
