@@ -14,9 +14,7 @@
 
 #### 1. list.c 带头双向循环链表
 
-1. [list.c 带头双向循环链表](https://github.com/sevend/Learn_RTOS/blob/main/docs/RTOS%20%E7%AC%AC%E4%B8%80%E6%AD%A5%20list.c%20%E5%B8%A6%E5%A4%B4%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.md)
-
-2. [list.c 带头双向循环链表](docs/RTOS%20%E7%AC%AC%E4%B8%80%E6%AD%A5%20list.c%20%E5%B8%A6%E5%A4%B4%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.md)
+#### 1. [list.c 带头双向循环链表s](docs/RTOS%20%E7%AC%AC%E4%B8%80%E6%AD%A5%20list.c%20%E5%B8%A6%E5%A4%B4%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.md)
 
 #### 2. task.c 任务的定义与任务切换的实现
 
