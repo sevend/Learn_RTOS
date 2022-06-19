@@ -12,11 +12,19 @@
 
 写一个可以跑起来的Demo，模拟FreeRTOS。
 
-#### 1. [list.c 带头双向循环链表](docs/RTOS%20%E7%AC%AC%E4%B8%80%E6%AD%A5%20list.c%20%E5%B8%A6%E5%A4%B4%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.md)
+#### [1. list.c 带头双向循环链表](docs/RTOS%20%E7%AC%AC%E4%B8%80%E6%AD%A5%20list.c%20%E5%B8%A6%E5%A4%B4%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8.md)
 
-#### 2. [task.c 任务的定义与任务切换的实现](docs/RTOS 第二步 task 创建任务与任务切换的实现.md)
+#### [2. task.c 任务的定义与任务切换的实现](docs/RTOS 第二步 task 创建任务与任务切换的实现.md)
 
 #### [3. 临界段的保护](docs/临界保护.md)
+
+1. [list.c 带头双向循环链表](docs/RTOS 第一步 list.c 带头双向循环链表.md)
+
+2. [task.c 任务的定义与任务切换的实现](docs/RTOS 第二步 task 创建任务与任务切换的实现.md)
+
+3. [临界段的保护](/docs/临界保护.md)
+
+4. 
 
 #### 4. 空闲任务与阻塞延时的实现
 
