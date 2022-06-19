@@ -17,7 +17,7 @@
 
 uint32_t flag1;
 uint32_t flag2;
-
+uint32_t flag3;
 
 /*
 *************************************************************************
@@ -36,6 +36,11 @@ TCB_t Task2TCB;
 TaskHandle_t Task1_Handle;
 TaskHandle_t Task2_Handle;
 
+TaskHandle_t Task3_Handle;
+#define TASK3_STACK_SIZE                    128
+StackType_t Task3Stack[TASK3_STACK_SIZE];
+TCB_t Task3TCB;
+
 
 /* 任务就绪列表 */
 extern List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
@@ -48,7 +53,7 @@ extern List_t pxReadyTasksLists[ configMAX_PRIORITIES ];
 void delay (uint32_t count);
 void Task1_Entry( void *p_arg );
 void Task2_Entry( void *p_arg );
-
+void Task3_Entry( void *p_arg );
 
 /*
 ************************************************************************
@@ -73,7 +78,7 @@ int main(void)
 					                  (char *)"Task1",               /* 任务名称，字符串形式 */
 					                  (uint32_t)TASK1_STACK_SIZE ,   /* 任务栈大小，单位为字 */
 					                  (void *) NULL,                 /* 任务形参 */
-									  (UBaseType_t) 1,               /* 任务优先级，数值越大，优先级越高 */  
+									  (UBaseType_t) 2,               /* 任务优先级，数值越大，优先级越高 */  
 					                  (StackType_t *)Task1Stack,     /* 任务栈起始地址 */
 					                  (TCB_t *)&Task1TCB );          /* 任务控制块 */
 									  
@@ -88,7 +93,18 @@ int main(void)
 									  (UBaseType_t) 2,               /* 任务优先级，数值越大，优先级越高 */                                          
 					                  (StackType_t *)Task2Stack,     /* 任务栈起始地址 */
 					                  (TCB_t *)&Task2TCB );          /* 任务控制块 */
-    /* 将任务添加到就绪列表 */                                   
+    
+									  
+									  
+/* 将任务添加到就绪列表 */    
+   Task3_Handle = xTaskCreateStatic( (TaskFunction_t)Task3_Entry,   /* 任务入口 */
+					                  (char *)"Task3",               /* 任务名称，字符串形式 */
+					                  (uint32_t)TASK3_STACK_SIZE ,   /* 任务栈大小，单位为字 */
+					                  (void *) NULL,                 /* 任务形参 */
+                                      (UBaseType_t) 3,               /* 任务优先级，数值越大，优先级越高 */                                          
+					                  (StackType_t *)Task3Stack,     /* 任务栈起始地址 */
+					                  (TCB_t *)&Task3TCB );          /* 任务控制块 */     
+									  
   //  vListInsertEnd( &( pxReadyTasksLists[2] ), &( ((TCB_t *)(&Task2TCB))->xStateListItem ) );
 									  
 	/* 启动调度器，开始多任务调度，启动成功则不返回 */								  
@@ -109,22 +125,21 @@ int main(void)
 */
 
 /* 软件延时 */
-void delay(uint32_t count)
+void delay (uint32_t count)
 {
-	for(;count!=0;count--);
-	
+	for(; count!=0; count--);
 }
-
 /* 任务1 */
 void Task1_Entry( void *p_arg )
 {
 	for( ;; )
 	{
 		flag1 = 1;
-		vTaskDelay( 2 );		
+        //vTaskDelay( 1 );
+        delay (100);		
 		flag1 = 0;
-		vTaskDelay( 2 );
-
+        delay (100);
+        //vTaskDelay( 1 );        
 	}
 }
 
@@ -134,10 +149,25 @@ void Task2_Entry( void *p_arg )
 	for( ;; )
 	{
 		flag2 = 1;
-		vTaskDelay( 2 );		
+        //vTaskDelay( 1 );
+        delay (100);		
 		flag2 = 0;
-		vTaskDelay( 2 );
-		
+        delay (100);
+        //vTaskDelay( 1 );        
+	}
+}
+
+
+void Task3_Entry( void *p_arg )
+{
+	for( ;; )
+	{
+		flag3 = 1;
+        vTaskDelay( 3 );
+        //delay (100);		
+		flag3 = 0;
+        vTaskDelay( 3 );
+        //delay (100);
 	}
 }
 

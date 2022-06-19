@@ -261,16 +261,27 @@ void vPortSetupTimerInterrupt( void )
 *                             SysTick中断服务函数
 *************************************************************************
 */
+
 void xPortSysTickHandler( void )
 {
 	/* 关中断 */
     vPortRaiseBASEPRI();
     
-    /* 更新系统时基 */
-    xTaskIncrementTick();
+    {
+        //xTaskIncrementTick();
+        
+        /* 更新系统时基 
+		当有任务就绪且就绪任务的优先级比当前优先级高时，才执行一次任务切换
+		*/
+		if( xTaskIncrementTick() != pdFALSE )
+		{
+			/* 任务切换，即触发PendSV */
+            //portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;
+            taskYIELD();
+		}
+	}
 
 	/* 开中断 */
     vPortClearBASEPRIFromISR();
 }
-
 

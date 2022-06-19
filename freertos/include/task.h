@@ -32,6 +32,7 @@ void vTaskSwitchContext( void );
 
 // —” ± systick
 void vTaskDelay( const TickType_t xTicksToDelay );
-void xTaskIncrementTick( void );
+//void xTaskIncrementTick( void );
+BaseType_t xTaskIncrementTick( void );
                                 
 #endif /* INC_TASK_H */ 

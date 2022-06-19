@@ -483,11 +483,13 @@ void vTaskDelay( const TickType_t xTicksToDelay )
     taskYIELD();
 }
 
-void xTaskIncrementTick( void )
+//void xTaskIncrementTick( void )
+BaseType_t xTaskIncrementTick( void )
 {
 	TCB_t * pxTCB;
-	TickType_t xItemValue;
-
+	TickType_t xItemValue;    
+    BaseType_t xSwitchRequired = pdFALSE;
+    
 	const TickType_t xConstTickCount = xTickCount + 1;
 	xTickCount = xConstTickCount;
 
@@ -525,13 +527,37 @@ void xTaskIncrementTick( void )
 
 				/* 将解除等待的任务添加到就绪列表 */
 				prvAddTaskToReadyList( pxTCB );
+                
+
+                #if (  configUSE_PREEMPTION == 1 )
+                {
+                    if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
+                    {
+                        xSwitchRequired = pdTRUE;
+                    }
+                }
+                #endif /* configUSE_PREEMPTION */
 			}
 		}
 	}/* xConstTickCount >= xNextTaskUnblockTime */
     
+    #if ( ( configUSE_PREEMPTION == 1 ) && ( configUSE_TIME_SLICING == 1 ) )
+    {
+        if( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ pxCurrentTCB->uxPriority ] ) ) 
+                                     > ( UBaseType_t ) 1 )
+        {
+            xSwitchRequired = pdTRUE;
+        }
+    }
+    #endif /* ( ( configUSE_PREEMPTION == 1 ) && ( configUSE_TIME_SLICING == 1 ) ) */
+    
+    
     /* 任务切换 */
-    portYIELD();
-}	
+    //portYIELD();
+}
+
+
+
 
 static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait )
 {
