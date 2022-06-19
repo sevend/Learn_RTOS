@@ -25,11 +25,11 @@ uint32_t flag2;
 *************************************************************************
 */
 
-#define TASK1_STACK_SIZE                    20
+#define TASK1_STACK_SIZE                    128
 StackType_t Task1Stack[TASK1_STACK_SIZE];
 TCB_t Task1TCB;
 
-#define TASK2_STACK_SIZE                    20
+#define TASK2_STACK_SIZE                    128
 StackType_t Task2Stack[TASK2_STACK_SIZE];
 TCB_t Task2TCB;
 

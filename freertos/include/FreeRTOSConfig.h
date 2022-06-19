@@ -13,7 +13,7 @@
 
 // systick œ‡πÿ≈‰÷√
 #define configCPU_CLOCK_HZ			( ( unsigned long ) 25000000 )	
-#define configTICK_RATE_HZ			( ( TickType_t ) 1 )
+#define configTICK_RATE_HZ			( ( TickType_t ) 100 )
 
 
 #define xPortPendSVHandler   PendSV_Handler
